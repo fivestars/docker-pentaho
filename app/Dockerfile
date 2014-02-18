@@ -13,8 +13,7 @@ CMD ["/sbin/my_init"]
 
 # ...put your own build instructions here...
 
-RUN apt-get update && apt-get install -y python-software-properties && \
-    add-apt-repository -y ppa:webupd8team/java && apt-get update
+RUN apt-get update && apt-get install -y python-software-properties && add-apt-repository -y ppa:webupd8team/java && apt-get update
 
 # RUN apt-get install oracle-java6-installer
 
