@@ -13,9 +13,6 @@ RUN apt-get update && apt-get install -y python-software-properties && add-apt-r
 # Install Oracle Java silently. Use the debconf autoaccept hack
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && apt-get install -y oracle-java6-installer
 
-# Do final package installs then clean up APT when done.
-RUN apt-get install -y supervisor && mkdir -p /var/run/sshd && mkdir -p /var/run/supervisor
-
 # Get and unzip pentaho BI server
 RUN wget http://softlayer-ams.dl.sourceforge.net/project/pentaho/Business%20Intelligence%20Server/4.8.0-stable/biserver-ce-4.8.0-stable.tar.gz && mkdir /opt/pentaho && tar xvzf biserver-ce-4.8.0-stable.tar.gz -C /opt/pentaho && rm -f biserver-ce-4.8.0-stable.tar.gz && rm -f /opt/pentaho/biserver-ce/promptuser.sh
 
