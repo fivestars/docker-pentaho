@@ -23,7 +23,10 @@ RUN apt-get install -y supervisor && mkdir -p /var/run/sshd && mkdir -p /var/run
 RUN wget http://192.168.239.243:8011/biserver-ce-4.8.0-stable.tar.gz && mkdir /opt/pentaho && tar xvzf biserver-ce-4.8.0-stable.tar.gz -C /opt/pentaho && rm -f biserver-ce-4.8.0-stable.tar.gz && rm -f /opt/pentaho/biserver-ce/promptuser.sh
 
 # Setup supervisord to run pentaho
-ADD supervisor.conf /etc/supervisor.conf
+# ADD supervisor.conf /etc/supervisor/conf.d/supervisord.conf
+
+RUN mkdir -p /etc/my_init.d
+ADD pentaho.sh /etc/my_init.d/pentaho.sh
 
 # Enable SSH
 # [delete mkdir]
