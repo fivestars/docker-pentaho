@@ -14,7 +14,7 @@ CMD ["/sbin/my_init"]
 # ...put your own build instructions here...
 # Add java repository
 RUN apt-get update && apt-get install -y python-software-properties && add-apt-repository -y ppa:webupd8team/java && apt-get update 
-#&& apt-get upgrade -y
+# && apt-get upgrade -y
 
 # Install Oracle Java silently. Use the debconf autoaccept hack
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections && apt-get install -y oracle-java6-installer
@@ -31,4 +31,10 @@ ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN mkdir /etc/service/supervisorctl
 ADD supervisorctl.sh /etc/service/supervisorctl/run
 
+# sudo docker run -p 8080? -p 8099? -t -i mattdoka/pentaho {basic}
+# Modify with: docker run YOUR_IMAGE /sbin/my_init -- COMMAND ARGUMENTS ...
 EXPOSE 8080, 8099
+
+# Enable SSH
+ADD id_rsa.pub /tmp/id_rsa.pub
+RUN cat /tmp/id_rsa.pub >> /root/.ssh/authorized_keys && rm -f /tmp/id_rsa.pub
